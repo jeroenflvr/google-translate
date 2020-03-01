@@ -3,12 +3,9 @@ from __future__ import unicode_literals
 import json
 import requests
 import urllib.parse
-#import translate
-#import googletrans
 import uno
 import os
 import sys
-#from google.cloud import translate
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -27,8 +24,6 @@ import contextlib
 
 CTX = uno.getComponentContext()
 SM = CTX.getServiceManager()
-#target_language = "en"
-#project_id = "my-project-1510327785880"
 default_pinyin_engine = "google"
 retries = 3
 sentinel_file = '/tmp/pinyin.sentinel'
