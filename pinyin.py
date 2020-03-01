@@ -46,8 +46,6 @@ def create_driver_instance():
     cdi_executor_url = driver.command_executor._url
     cdi_session_id = driver.session_id
 
-    print (cdi_session_id)
-    print (cdi_executor_url)
     logging.info("create_driver_instance: sessionId: {}, executorUrl: {}".format(cdi_session_id,cdi_executor_url))
     return cdi_session_id, cdi_executor_url
 
@@ -167,7 +165,6 @@ def google_sel_translate_reuse_browser (tobetranslated, sourcelang , destlang ):
         exit()
 
     wait = WebDriverWait(driver.find_element_by_css_selector(".transliteration-container"),5000)
-    print("got the items")
 
     if get_source_pinyin:
         show_more_link = "div.tlid-show-more-link.truncate-link"
@@ -186,7 +183,7 @@ def google_sel_translate_reuse_browser (tobetranslated, sourcelang , destlang ):
         driver.find_element_by_css_selector(show_more_link).click()
         pinyin = driver.find_element_by_css_selector(show_more_transliteration_link).text 
     except:
-        print ("no show more field")
+        #no show more field
         try:
             pinyin = driver.find_element_by_css_selector(transliteration_link).text
         except:
@@ -200,27 +197,6 @@ def google_sel_translate_reuse_browser (tobetranslated, sourcelang , destlang ):
          print("no translation")
     #driver.quit()
     return pinyin, translated
-
-
-
-
-def google_translate(text):
-    target_language = "en"
-    project_id = "my-project-1510327785880"
-
-    client = translate.TranslationServiceClient()
-
-    contents = [text]
-    parent = client.location_path(project_id, "global")
-
-    response = client.translate_text(
-        parent=parent,
-        contents=contents,
-        mime_type='text/plain',  # mime types: text/plain, text/html
-        source_language_code='zh-cn',
-        target_language_code=target_language)
-    return response.translations[0].translated_text
-
 
 
 def translate_controller(pinyin_engine = default_pinyin_engine, sourcelang = "zh-CN", destlang = "en"):
